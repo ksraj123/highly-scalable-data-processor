@@ -19,6 +19,10 @@ Create Kafka topic using the command
 
     kubectl apply -f kubernetes/kafka/kafka-topic.yaml
 
+On minikube, enable ingress
+
+    minikube addons enable ingress
+
 Deploy all other kubernetes objects like, deployments for different microservices, cluster IP services, ingress using the command
 
     kubectl apply -f kubernetes
@@ -27,4 +31,4 @@ get the ip address of minikube using
 
     minikube ip
 
-Send `POST` request to `http://<minikube-ip>/api/` to submit a form
+Send `POST` request to `http://<minikube-ip>/student-data-form/` to submit a form

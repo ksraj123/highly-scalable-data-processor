@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: form-submission-deployment
+  name: student-data-form-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: form-submission
+      component: student-data-form
   template:
     metadata:
       labels:
-        component: form-submission
+        component: student-data-form
     spec:
       containers:
-        - name: form-submission-handler
-          image: ksraj123/form-submission-handler
+        - name: student-data-form
+          image: ksraj123/student-data-form:v1
           ports:
             - containerPort: 3000
           env:
