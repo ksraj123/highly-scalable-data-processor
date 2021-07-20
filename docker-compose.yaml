@@ -40,3 +40,4 @@ services:
       KAFKA_HOST: kafka
       KAFKA_PORT: 9092
       KAFKA_TOPIC: test
+      KAFKA_CONSUMER_GROUP: consumers

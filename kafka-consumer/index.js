@@ -2,7 +2,7 @@ import Kafka from 'node-rdkafka';
 import eventType from './models/eventType.js';
 
 var consumer = new Kafka.KafkaConsumer({
-  'group.id': 'kafka',
+  'group.id': `${process.env.KAFKA_CONSUMER_GROUP}`,
   'metadata.broker.list': `${process.env.KAFKA_HOST}:${process.env.KAFKA_PORT}`,
 }, {});
 

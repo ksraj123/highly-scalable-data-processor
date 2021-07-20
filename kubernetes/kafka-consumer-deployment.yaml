@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-consumer-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: kafka-consumer
+  template:
+    metadata:
+      labels:
+        component: kafka-consumer
+    spec:
+      containers:
+        - name: kafka-consumer
+          image: ksraj123/kafka-consumer:v1
+          ports:
+            - containerPort: 3000
+          env:
+            - name: KAFKA_HOST
+              value: my-cluster-kafka-bootstrap
+            - name: KAFKA_PORT
+              value: '9092'
+            - name: KAFKA_TOPIC
+              value: form-data
+            - name: KAFKA_CONSUMER_GROUP
+              value: 'consumers'
+            - name: PORT
+              value: '3000'

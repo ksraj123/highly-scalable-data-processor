@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: form-submission-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: form-submission
+  template:
+    metadata:
+      labels:
+        component: form-submission
+    spec:
+      containers:
+        - name: form-submission-handler
+          image: ksraj123/form-submission-handler
+          ports:
+            - containerPort: 3000
+          env:
+            - name: KAFKA_HOST
+              value: my-cluster-kafka-bootstrap
+            - name: KAFKA_PORT
+              value: '9092'
+            - name: KAFKA_TOPIC
+              value: form-data
+            - name: PORT
+              value: '3000'
