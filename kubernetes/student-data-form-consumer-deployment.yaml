@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kafka-consumer-deployment
+  name: student-data-form-consumer-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: kafka-consumer
+      component: student-data-form-consumer
   template:
     metadata:
       labels:
-        component: kafka-consumer
+        component: student-data-form-consumer
     spec:
       containers:
-        - name: kafka-consumer
-          image: ksraj123/kafka-consumer:v1
+        - name: student-data-form-consumer
+          image: ksraj123/student-data-form-consumer:v1
           ports:
             - containerPort: 3000
           env:
@@ -23,8 +23,8 @@ spec:
             - name: KAFKA_PORT
               value: '9092'
             - name: KAFKA_TOPIC
-              value: form-data
+              value: student-data-form
             - name: KAFKA_CONSUMER_GROUP
-              value: 'consumers'
+              value: 'student-data-consumers'
             - name: PORT
               value: '3000'

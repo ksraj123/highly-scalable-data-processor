@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: student-data-form-deployment
+  name: demo-form-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: student-data-form
+      component: demo-form
   template:
     metadata:
       labels:
-        component: student-data-form
+        component: demo-form
     spec:
       containers:
-        - name: student-data-form
-          image: ksraj123/student-data-form:v2
+        - name: demo-form
+          image: ksraj123/demo-form:v1
           ports:
             - containerPort: 3000
           env:
@@ -23,6 +23,6 @@ spec:
             - name: KAFKA_PORT
               value: '9092'
             - name: KAFKA_TOPIC
-              value: student-data-form
+              value: demo-topic
             - name: PORT
               value: '3000'

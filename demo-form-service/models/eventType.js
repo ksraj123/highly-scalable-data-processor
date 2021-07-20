@@ -4,11 +4,11 @@ export default avro.Type.forSchema({
   type: 'record',
   fields: [
     {
-      name: 'category',
+      name: 'item1',
       type: 'string',
     },
     {
-      name: 'noise',
+      name: 'item2',
       type: 'string',
     }
   ]

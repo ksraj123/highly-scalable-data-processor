@@ -16,3 +16,10 @@ spec:
                 name: student-data-form-cluster-ip-service
                 port:
                   number: 3000
+          - path: /demo-form/
+            pathType: Prefix
+            backend:
+              service:
+                name: demo-form-cluster-ip-service
+                port:
+                  number: 3000

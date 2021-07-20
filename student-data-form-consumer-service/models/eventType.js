@@ -14,6 +14,6 @@ export default avro.Type.forSchema({
     {
       name: 'university',
       type: 'string',
-    }
+    },
   ]
 });

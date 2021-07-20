@@ -1,7 +1,7 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: form-data
+  name: student-data-form
   labels:
     strimzi.io/cluster: "my-cluster"
 spec:
