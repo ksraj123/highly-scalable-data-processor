@@ -45,4 +45,6 @@ services:
       KAFKA_PORT: 9092
       KAFKA_TOPIC: student-data
       KAFKA_CONSUMER_GROUP: student-data-form-consumers
+      PRIVATE_KEY: 
+      CLIENT_EMAIL: 
 

@@ -13,6 +13,8 @@
   "dependencies": {
     "avro": "^0.1.0",
     "avsc": "^5.7.1",
+    "buffer": "^6.0.3",
+    "googleapis": "^39.2.0",
     "node-rdkafka": "^2.10.1"
   }
 }
