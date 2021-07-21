@@ -28,3 +28,15 @@ spec:
               value: 'student-data-consumers'
             - name: PORT
               value: '3000'
+            - name: ENV 
+              value: Kubernetes 
+            - name: PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: google-api-keys
+                  key: PRIVATE_KEY
+            - name: CLIENT_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: google-api-keys
+                  key: CLIENT_EMAIL

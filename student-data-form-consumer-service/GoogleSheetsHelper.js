@@ -1,13 +1,21 @@
+import { Buffer } from 'buffer';
 import { google } from 'googleapis';
 
 export default class GoogleSheetsHelper {
     
     constructor() {
+        const googleSheetsApiCredentials = process.env.ENV === 'Docker'? {
+            privateKey:  Buffer.from(process.env.PRIVATE_KEY, 'base64').toString('ascii'),
+            clientEmail: Buffer.from(process.env.CLIENT_EMAIL, 'base64').toString('ascii')
+        } : {
+            privateKey:  process.env.PRIVATE_KEY,
+            clientEmail: process.env.CLIENT_EMAIL
+        }
         this.spreadsheetId = '16cAsR7LjVYj66gxhVVMAriMxwWdAXb3lxBN4raCAbh4';
         this.client = new google.auth.JWT(
-            process.env.CLIENT_EMAIL, // client email
+            googleSheetsApiCredentials.clientEmail, // client email
             null,
-            `-----BEGIN PRIVATE KEY-----\n${process.env.PRIVATE_KEY}\n-----END PRIVATE KEY-----`, // private key
+            `-----BEGIN PRIVATE KEY-----\n${googleSheetsApiCredentials.privateKey}\n-----END PRIVATE KEY-----`, // private key
             ['https://www.googleapis.com/auth/spreadsheets'] 
         );
         this.authorizeClient();
