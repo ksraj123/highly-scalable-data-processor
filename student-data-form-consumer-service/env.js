@@ -4,4 +4,5 @@ export const KAFKA_PORT = process.env.KAFKA_PORT;
 export const KAFKA_TOPIC = process.env.KAFKA_TOPIC;
 export const PRIVATE_KEY = process.env.PRIVATE_KEY;
 export const CLIENT_EMAIL = process.env.CLIENT_EMAIL;
+export const EVENT_BATCH_SIZE = process.env.EVENT_BATCH_SIZE;
 export const KAFKA_CONSUMER_GROUP = process.env.KAFKA_CONSUMER_GROUP;

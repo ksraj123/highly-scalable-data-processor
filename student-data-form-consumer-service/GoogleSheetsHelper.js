@@ -1,5 +1,6 @@
 import { Buffer } from 'buffer';
 import { google } from 'googleapis';
+import { fields } from './models/kafkaEventModel.js';
 import { ENV, CLIENT_EMAIL, PRIVATE_KEY } from './env.js';
 
 export default class GoogleSheetsHelper {
@@ -34,15 +35,30 @@ export default class GoogleSheetsHelper {
         })
     }
 
-    async appendToSheet() {
+    columnToLetter(column) {
+        let temp, letter = '';
+        while (column > 0)
+        {
+            temp = (column - 1) % 26;
+            letter = String.fromCharCode(temp + 65) + letter;
+            column = (column - temp - 1) / 26;
+        }
+        return letter;
+    }
+
+    async appendToSheet(data) {
+        const sheetColumnOrder = fields.map(field => field.name);
+        const dataToAppend = data.map(ele => {
+            return sheetColumnOrder.map(field => ele[field])
+        });
         const request = {
             spreadsheetId: '16cAsR7LjVYj66gxhVVMAriMxwWdAXb3lxBN4raCAbh4',
-            range: 'Sheet1!A:B',
+            range: `Sheet1!A:${this.columnToLetter(sheetColumnOrder.length)}`,
             valueInputOption: 'USER_ENTERED',
             insertDataOption: 'INSERT_ROWS',
             resource: {
                 "majorDimension": "ROWS",
-                "values": [["Row 1 Col 1","Row 1 Col 2"], ["Row 2 Col 1","Row 2 Col 2"]]
+                "values": dataToAppend
             },
             auth: this.client,
         };
