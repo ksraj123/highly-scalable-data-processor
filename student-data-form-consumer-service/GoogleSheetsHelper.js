@@ -1,15 +1,16 @@
 import { Buffer } from 'buffer';
 import { google } from 'googleapis';
+import { ENV, CLIENT_EMAIL, PRIVATE_KEY } from './env.js';
 
 export default class GoogleSheetsHelper {
     
     constructor() {
-        const googleSheetsApiCredentials = process.env.ENV === 'Docker'? {
-            privateKey:  Buffer.from(process.env.PRIVATE_KEY, 'base64').toString('ascii'),
-            clientEmail: Buffer.from(process.env.CLIENT_EMAIL, 'base64').toString('ascii')
+        const googleSheetsApiCredentials = ENV === 'Docker'? {
+            privateKey:  Buffer.from(PRIVATE_KEY, 'base64').toString('ascii'),
+            clientEmail: Buffer.from(CLIENT_EMAIL, 'base64').toString('ascii')
         } : {
-            privateKey:  process.env.PRIVATE_KEY,
-            clientEmail: process.env.CLIENT_EMAIL
+            privateKey:  PRIVATE_KEY,
+            clientEmail: CLIENT_EMAIL
         }
         this.spreadsheetId = '16cAsR7LjVYj66gxhVVMAriMxwWdAXb3lxBN4raCAbh4';
         this.client = new google.auth.JWT(

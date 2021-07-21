@@ -1,10 +1,10 @@
-import Kafka from 'node-rdkafka';
-import eventType from './models/eventType.js';
 import express from 'express';
+import Kafka from 'node-rdkafka';
+import eventType from './models/kafkaEventModel.js';
+import { validationResult } from 'express-validator';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
-import { envVars } from './env.js';
-
-const { KAFKA_HOST, KAFKA_PORT, KAFKA_TOPIC, PORT } = envVars;
+import { validationRules } from './middleware/validator.js';
+import { KAFKA_HOST, KAFKA_PORT, KAFKA_TOPIC, PORT } from './env.js';
 
 const app = express();
 app.use(express.json());
@@ -21,13 +21,17 @@ stream.on('error', (err) => {
 });
 
 // do some simple form data validation alteast
-app.post("/", (req, res) => {
+app.post("/", validationRules, (req, res) => {
   console.log(req.body);
+  const validationError = validationResult(req).array({ onlyFirstError: true});
+  if (validationError.length !== 0) {
+    return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json(validationError);
+  }
   const success = stream.write(eventType.toBuffer(req.body));     
   if (success) {
     console.log(`message queued (${JSON.stringify(req.body)})`);
     res.status(StatusCodes.OK).json({
-      success: ReasonPhrases.OK
+      success: req.body
     });
   } else {
     console.log('Too many messages in the queue');
