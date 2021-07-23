@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: demo-form
-          image: ksraj123/demo-form:v1
+          image: ksraj123/demo-form
           ports:
             - containerPort: 3000
           env:

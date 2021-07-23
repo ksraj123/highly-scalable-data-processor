@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: student-data-form-consumer
-          image: ksraj123/student-data-form-consumer:v1
+          image: ksraj123/student-data-form-consumer
           ports:
             - containerPort: 3000
           env:
@@ -40,3 +40,5 @@ spec:
                 secretKeyRef:
                   name: google-api-keys
                   key: CLIENT_EMAIL
+            - name: EVENT_BATCH_SIZE
+              value: '5'

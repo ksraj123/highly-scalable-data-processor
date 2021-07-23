@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: student-data-form
-          image: ksraj123/student-data-form:v2
+          image: ksraj123/student-data-form
           ports:
             - containerPort: 3000
           env:

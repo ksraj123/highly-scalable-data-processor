@@ -1,6 +1,12 @@
 # Kubernetes Setup
 
+Link to Kubernetes Installation and Demo - [youtube video](https://youtu.be/UOz46btrXO0)
+
 Install [minikube](https://v1-18.docs.kubernetes.io/docs/tasks/tools/install-minikube/) on local environment of setup a kubernetes cluster on a cloud platform
+
+Start minikube with the following command
+
+    minikube start --vm=true --driver=hyperkit
 
 Install [Helm](https://helm.sh/docs/intro/install/)
 
@@ -17,7 +23,8 @@ For production, use the `kafka-persistent-multiple.yaml` file, it deploys a mult
 
 Create Kafka topic using the command
 
-    kubectl apply -f kubernetes/kafka/kafka-topic.yaml
+    kubectl apply -f kubernetes/kafka/student-data-form-kafka-topic.yaml
+    kubectl apply -f kubernetes/kafka/demo-form-kafka-topic.yaml
 
 On minikube, enable ingress
 
@@ -32,3 +39,14 @@ get the ip address of minikube using
     minikube ip
 
 Send `POST` request to `http://<minikube-ip>/student-data-form/` to submit a form
+
+    {
+        "name": "Saurabh raj",
+        "roll": "99999",
+        "university": "BCE",
+        "cgpa": "8.04",
+        "gender": "F",
+        "age": "10.11",
+        "email": "kumarsaurabhraj.sr@gmail.com",
+        "mobile": "7004465984"
+    }

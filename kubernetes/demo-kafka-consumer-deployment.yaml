@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: demo-kafka-consumer
-          image: ksraj123/demo-kafka-consumer:v1
+          image: ksraj123/demo-kafka-consumer:v1.1
           ports:
             - containerPort: 3000
           env:
@@ -26,5 +26,3 @@ spec:
               value: demo-topic
             - name: KAFKA_CONSUMER_GROUP
               value: 'demo-consumers'
-            - name: PORT
-              value: '3000'

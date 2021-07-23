@@ -1,18 +1,27 @@
 import Kafka from 'node-rdkafka';
 import eventType from './models/eventType.js';
+import {KAFKA_CONSUMER_GROUP, KAFKA_HOST, KAFKA_PORT, KAFKA_TOPIC} from './env.js';
 
-var consumer = new Kafka.KafkaConsumer({
-  'group.id': `${process.env.KAFKA_CONSUMER_GROUP}`,
-  'metadata.broker.list': `${process.env.KAFKA_HOST}:${process.env.KAFKA_PORT}`,
-}, {});
+class DemoKafkaConsumer {
+  constructor() {
+    this.kafkaConsumer = new Kafka.KafkaConsumer({
+      'group.id': `${KAFKA_CONSUMER_GROUP}`,
+      'metadata.broker.list': `${KAFKA_HOST}:${KAFKA_PORT}`,
+    }, {});
+    this.initiateKafkaCosumer();
+  }
 
-consumer.connect();
+  initiateKafkaCosumer() {
+    this.kafkaConsumer.connect();
+    this.kafkaConsumer.on('ready', () => {
+      console.log('consumer ready..')
+      this.kafkaConsumer.subscribe([`${KAFKA_TOPIC}`]);
+      this.kafkaConsumer.consume();
+    }).on('data', (data) => {
+      console.log(data);
+      console.log(`received message: ${eventType.fromBuffer(data.value)}`);
+    });
+  }
+}
 
-consumer.on('ready', () => {
-  console.log('consumer ready..')
-  consumer.subscribe([`${process.env.KAFKA_TOPIC}`]);
-  consumer.consume();
-}).on('data', function(data) {
-  console.log(data);
-  console.log(`received message: ${eventType.fromBuffer(data.value)}`);
-});
+new DemoKafkaConsumer();
